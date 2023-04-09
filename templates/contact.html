@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{% block title %}App company{% endblock %}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: red;
+}
+
+.contact{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.w3-container{
+    text-align: center;
+}
+button[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div >
+    <h3 class="w3-padding-64"><b>APP<br>company</b></h3>
+  </div>
+  <div class="w3-bar-block">
+   <a href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+  <a href="{% url 'stories' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Stories</a>
+    <a href="{% url 'about' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About</a>
+    <a href="{% url 'career' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Career</a>
+    <a href="{% url 'contact' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>APP company</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 style="text-align: center" class="w3-jumbo"><b>Get in touch</b></h1>
+      <p style="text-align:center">Do you have any questions? Share them here and we will respond as soon as possible</p>
+  </div>
+{% block content %}
+<div class="w3-container" id="services" style="margin-top:75px">
+    <h5>Email</h5>
+    <p>info@appcompany.com</p>
+    <h5>Phone number</h5>
+    <p>+383 45 111 222</p>
+    <h5>Address</h5>
+    <p>Bajram Kelmendi, 45, nr. 2 10000 Prishtina, Kosovo</p>
+  </div>
+<div class="contact">
+  <form action="{% url 'contact' %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Send</button>
+      {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+  </form>
+</div>
+{% endblock %}
+
+</div>
+</body>
+<footer>
+
+</footer>
+</html>
